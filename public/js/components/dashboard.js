@@ -7,49 +7,49 @@
  */
 
 class TimerManager {
-    /**
-     * Initialize timer manager
-     */
     constructor() {
         this.timers = {};
+        this.targetHours = 2;
         this.initializeTimers();
         this.attachEventListeners();
+        this.loadSavedTimers();
     }
     
-    /**
-     * Initialize all timer cards
-     */
     initializeTimers() {
         const cards = document.querySelectorAll('.timer-card');
         cards.forEach(card => {
             const activity = card.dataset.activity;
-            this.timers[activity] = {
-                seconds: 0,
-                interval: null,
-                isRunning: false
-            };
+            this.timers[activity] = { seconds: 0, interval: null, isRunning: false };
         });
     }
     
-    /**
-     * Attach event listeners to buttons
-     */
     attachEventListeners() {
         const cards = document.querySelectorAll('.timer-card');
         cards.forEach(card => {
             const activity = card.dataset.activity;
-            const btnStart = card.querySelector('.btn-start');
-            const btnPause = card.querySelector('.btn-pause');
-            const btnStop = card.querySelector('.btn-stop');
-            
-            btnStart.addEventListener('click', () => this.startTimer(activity));
-            btnPause.addEventListener('click', () => this.pauseTimer(activity));
-            btnStop.addEventListener('click', () => this.stopTimer(activity));
+            card.querySelector('.btn-start').addEventListener('click', () => this.startTimer(activity, card));
+            card.querySelector('.btn-pause').addEventListener('click', () => this.pauseTimer(activity, card));
+            card.querySelector('.btn-stop').addEventListener('click', () => this.stopTimer(activity, card));
         });
+    }
+    
+    startTimer(activity, card) {
+        if (this.timers[activity].isRunning) return;
+        this.timers[activity].isRunning = true;
+        this.updateButtonStates(card, 'running');
+        this.timers[activity].interval = setInterval(() => {
+            this.timers[activity].seconds++;
+            this.updateDisplay(activity, card);
+            this.saveTimerState(activity);
+        }, 1000);
+    }
+    
+    pauseTimer(activity, card) {
+        this.timers[activity].isRunning = false;
+        clearInterval(this.timers[activity].interval);
+        this.updateButtonStates(card, 'paused');
+        this.saveTimerState(activity);
     }
 }
 
-// Initialize on DOM load
-document.addEventListener('DOMContentLoaded', () => {
-    new TimerManager();
-});
+document.addEventListener('DOMContentLoaded', () => { new TimerManager(); });

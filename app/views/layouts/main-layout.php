@@ -21,6 +21,8 @@
         <p>&copy; 2024 TriTrack by franzxml</p>
     </footer>
     
+    <script src="<?= $appUrl ?? '' ?>/js/utils/timer-helper.js"></script>
+    <script src="<?= $appUrl ?? '' ?>/js/utils/storage-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/components/dashboard.js"></script>
 </body>
 </html>
