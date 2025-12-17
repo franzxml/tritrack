@@ -3,7 +3,7 @@
 A web-based daily activity tracking application built with pure PHP MVC architecture and vanilla JavaScript.
 
 ## Author
-**franzxml** - Senior Full Stack Developer
+**franzxml**
 
 ## Features
 
