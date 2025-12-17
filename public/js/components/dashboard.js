@@ -1,6 +1,6 @@
 /**
  * Dashboard Timer Component
- * Manages activity timers with API integration
+ * Manages activity timers with notes
  * 
  * @package TriTrack
  * @author franzxml
@@ -55,13 +55,19 @@ class TimerManager {
         this.timers[activity].isRunning = false;
         clearInterval(this.timers[activity].interval);
         const seconds = this.timers[activity].seconds;
+        
         if (seconds > 0) {
-            await ApiHelper.saveSession(activity, seconds);
+            const activityDisplay = card.querySelector('.timer-title').textContent;
+            window.modalManager.showNotesModal(activityDisplay, async (notes) => {
+                await ApiHelper.saveSession(activity, seconds, notes);
+                this.timers[activity].seconds = 0;
+                this.updateDisplay(activity, card);
+                this.updateButtonStates(card, 'stopped');
+                StorageHelper.clearTimer(activity);
+            });
+        } else {
+            this.updateButtonStates(card, 'stopped');
         }
-        this.timers[activity].seconds = 0;
-        this.updateDisplay(activity, card);
-        this.updateButtonStates(card, 'stopped');
-        StorageHelper.clearTimer(activity);
     }
     
     updateDisplay(activity, card) {

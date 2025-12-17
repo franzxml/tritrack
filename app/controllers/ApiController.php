@@ -24,7 +24,7 @@ class ApiController extends Controller
     }
     
     /**
-     * Save timer session
+     * Save timer session with notes
      * 
      * @return void
      */
@@ -47,7 +47,8 @@ class ApiController extends Controller
             'activity_id' => $activity['id'],
             'start_time' => date('Y-m-d H:i:s', strtotime('-' . $input['seconds'] . ' seconds')),
             'session_date' => date('Y-m-d'),
-            'duration_seconds' => $input['seconds']
+            'duration_seconds' => $input['seconds'],
+            'notes' => $input['notes'] ?? null
         ];
         
         $sessionId = $this->sessionModel->create($data);

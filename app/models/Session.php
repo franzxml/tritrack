@@ -23,21 +23,23 @@ class Session
     }
     
     /**
-     * Create new session
+     * Create new session with notes
      * 
      * @param array $data Session data
      * @return int Last insert ID
      */
     public function create($data)
     {
-        $query = "INSERT INTO sessions (activity_id, start_time, session_date, end_time, duration_seconds) 
-                  VALUES (:activity_id, :start_time, :session_date, NOW(), :duration)";
+        $query = "INSERT INTO sessions (activity_id, start_time, session_date, end_time, duration_seconds, notes) 
+                  VALUES (:activity_id, :start_time, :session_date, NOW(), :duration, :notes)";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':activity_id', $data['activity_id']);
         $stmt->bindParam(':start_time', $data['start_time']);
         $stmt->bindParam(':session_date', $data['session_date']);
         $duration = isset($data['duration_seconds']) ? $data['duration_seconds'] : 0;
         $stmt->bindParam(':duration', $duration);
+        $notes = isset($data['notes']) ? $data['notes'] : null;
+        $stmt->bindParam(':notes', $notes);
         $stmt->execute();
         return $this->connection->lastInsertId();
     }

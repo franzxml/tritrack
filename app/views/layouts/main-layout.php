@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?? 'TriTrack' ?></title>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/layouts/main-layout.css">
+    <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/modal.css">
     <?php if (isset($page) && $page === 'statistics'): ?>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/stats.css">
     <?php else: ?>
@@ -28,6 +29,7 @@
     <script src="<?= $appUrl ?? '' ?>/js/utils/timer-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/utils/storage-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/utils/api-helper.js"></script>
+    <script src="<?= $appUrl ?? '' ?>/js/components/modal.js"></script>
     <?php if (isset($page) && $page === 'statistics'): ?>
     <script src="<?= $appUrl ?? '' ?>/js/components/stats.js"></script>
     <?php else: ?>

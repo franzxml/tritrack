@@ -13,18 +13,19 @@ const ApiHelper = {
     baseUrl: 'http://tritrack.test',
     
     /**
-     * Save session to database
+     * Save session to database with notes
      * 
      * @param {string} activity Activity name
      * @param {number} seconds Duration in seconds
+     * @param {string} notes Session notes
      * @return {Promise}
      */
-    async saveSession(activity, seconds) {
+    async saveSession(activity, seconds, notes = null) {
         try {
             const response = await fetch(`${this.baseUrl}/ApiController/saveSession`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ activity, seconds })
+                body: JSON.stringify({ activity, seconds, notes })
             });
             return await response.json();
         } catch (error) {
