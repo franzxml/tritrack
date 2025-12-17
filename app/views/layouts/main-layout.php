@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/settings.css">
     <?php elseif (isset($page) && $page === 'history'): ?>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/history.css">
+    <?php elseif (isset($page) && $page === 'error'): ?>
+    <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/error.css">
     <?php else: ?>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/dashboard.css">
     <?php endif; ?>
@@ -30,6 +32,7 @@
         <p>&copy; 2024 TriTrack by franzxml</p>
     </footer>
     
+    <?php if (!isset($page) || $page !== 'error'): ?>
     <script src="<?= $appUrl ?? '' ?>/js/utils/timer-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/utils/storage-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/utils/api-helper.js"></script>
@@ -43,6 +46,7 @@
     <script src="<?= $appUrl ?? '' ?>/js/components/history.js"></script>
     <?php else: ?>
     <script src="<?= $appUrl ?? '' ?>/js/components/dashboard.js"></script>
+    <?php endif; ?>
     <?php endif; ?>
 </body>
 </html>
