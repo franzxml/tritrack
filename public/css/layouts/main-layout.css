@@ -1,0 +1,47 @@
+/* Main Layout Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.app-title {
+    font-size: 2rem;
+    color: #667eea;
+    font-weight: 700;
+}
+
+.app-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.app-main {
+    flex: 1;
+    padding: 2rem;
+}
+
+.app-footer {
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+}
