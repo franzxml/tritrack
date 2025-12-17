@@ -46,5 +46,20 @@ const ApiHelper = {
             console.error('API Error:', error);
             return { success: false, message: error.message };
         }
+    },
+    
+    /**
+     * Get today's sessions
+     * 
+     * @return {Promise}
+     */
+    async getTodaySessions() {
+        try {
+            const response = await fetch(`${this.baseUrl}/ApiController/getTodaySessions`);
+            return await response.json();
+        } catch (error) {
+            console.error('API Error:', error);
+            return { success: false, message: error.message };
+        }
     }
 };

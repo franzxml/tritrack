@@ -4,6 +4,10 @@ ob_start();
 ?>
 
 <div class="dashboard-container">
+    <div class="dashboard-actions">
+        <a href="<?= $appUrl ?>/StatsController" class="btn-stats">View Statistics</a>
+    </div>
+    
     <div class="timer-grid">
         <div class="timer-card" data-activity="honkai">
             <h2 class="timer-title">Honkai: Star Rail</h2>
