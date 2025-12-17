@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/modal.css">
     <?php if (isset($page) && $page === 'statistics'): ?>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/stats.css">
+    <?php elseif (isset($page) && $page === 'settings'): ?>
+    <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/settings.css">
     <?php else: ?>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/dashboard.css">
     <?php endif; ?>
@@ -29,9 +31,12 @@
     <script src="<?= $appUrl ?? '' ?>/js/utils/timer-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/utils/storage-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/utils/api-helper.js"></script>
+    <script src="<?= $appUrl ?? '' ?>/js/utils/notification-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/components/modal.js"></script>
     <?php if (isset($page) && $page === 'statistics'): ?>
     <script src="<?= $appUrl ?? '' ?>/js/components/stats.js"></script>
+    <?php elseif (isset($page) && $page === 'settings'): ?>
+    <script src="<?= $appUrl ?? '' ?>/js/components/settings.js"></script>
     <?php else: ?>
     <script src="<?= $appUrl ?? '' ?>/js/components/dashboard.js"></script>
     <?php endif; ?>

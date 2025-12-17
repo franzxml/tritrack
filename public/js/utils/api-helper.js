@@ -62,5 +62,26 @@ const ApiHelper = {
             console.error('API Error:', error);
             return { success: false, message: error.message };
         }
+    },
+    
+    /**
+     * Update activity target time
+     * 
+     * @param {number} activityId Activity ID
+     * @param {number} targetSeconds Target seconds
+     * @return {Promise}
+     */
+    async updateActivityTarget(activityId, targetSeconds) {
+        try {
+            const response = await fetch(`${this.baseUrl}/ApiController/updateTarget`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ activity_id: activityId, target_seconds: targetSeconds })
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('API Error:', error);
+            return { success: false, message: error.message };
+        }
     }
 };
