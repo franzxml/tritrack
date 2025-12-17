@@ -30,31 +30,34 @@ class Session
      */
     public function create($data)
     {
-        $query = "INSERT INTO sessions (activity_id, start_time, session_date) 
-                  VALUES (:activity_id, :start_time, :session_date)";
+        $query = "INSERT INTO sessions (activity_id, start_time, session_date, end_time, duration_seconds) 
+                  VALUES (:activity_id, :start_time, :session_date, NOW(), :duration)";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':activity_id', $data['activity_id']);
         $stmt->bindParam(':start_time', $data['start_time']);
         $stmt->bindParam(':session_date', $data['session_date']);
+        $duration = isset($data['duration_seconds']) ? $data['duration_seconds'] : 0;
+        $stmt->bindParam(':duration', $duration);
         $stmt->execute();
         return $this->connection->lastInsertId();
     }
     
     /**
-     * Update session end time and duration
+     * Get sessions by date
      * 
-     * @param int $id Session ID
-     * @param array $data Update data
-     * @return bool
+     * @param string $date Date in Y-m-d format
+     * @return array
      */
-    public function update($id, $data)
+    public function getByDate($date)
     {
-        $query = "UPDATE sessions SET end_time = :end_time, duration_seconds = :duration 
-                  WHERE id = :id";
+        $query = "SELECT s.*, a.name, a.display_name 
+                  FROM sessions s 
+                  JOIN activities a ON s.activity_id = a.id 
+                  WHERE s.session_date = :date 
+                  ORDER BY s.start_time DESC";
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(':end_time', $data['end_time']);
-        $stmt->bindParam(':duration', $data['duration_seconds']);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }

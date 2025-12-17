@@ -1,6 +1,6 @@
 /**
  * Dashboard Timer Component
- * Manages activity timers
+ * Manages activity timers with API integration
  * 
  * @package TriTrack
  * @author franzxml
@@ -51,9 +51,13 @@ class TimerManager {
         this.saveTimerState(activity);
     }
     
-    stopTimer(activity, card) {
+    async stopTimer(activity, card) {
         this.timers[activity].isRunning = false;
         clearInterval(this.timers[activity].interval);
+        const seconds = this.timers[activity].seconds;
+        if (seconds > 0) {
+            await ApiHelper.saveSession(activity, seconds);
+        }
         this.timers[activity].seconds = 0;
         this.updateDisplay(activity, card);
         this.updateButtonStates(card, 'stopped');

@@ -23,6 +23,7 @@
     
     <script src="<?= $appUrl ?? '' ?>/js/utils/timer-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/utils/storage-helper.js"></script>
+    <script src="<?= $appUrl ?? '' ?>/js/utils/api-helper.js"></script>
     <script src="<?= $appUrl ?? '' ?>/js/components/dashboard.js"></script>
 </body>
 </html>
