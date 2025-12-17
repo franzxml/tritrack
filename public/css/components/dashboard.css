@@ -9,10 +9,12 @@
     display: flex;
     gap: 1rem;
     justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 2rem;
 }
 
 .btn-stats,
+.btn-history,
 .btn-settings {
     background: white;
     color: #667eea;
@@ -26,6 +28,7 @@
 }
 
 .btn-stats:hover,
+.btn-history:hover,
 .btn-settings:hover {
     background: #f3f4f6;
     transform: translateY(-2px);

@@ -83,5 +83,21 @@ const ApiHelper = {
             console.error('API Error:', error);
             return { success: false, message: error.message };
         }
+    },
+    
+    /**
+     * Get weekly summary
+     * 
+     * @param {number} weekOffset Week offset (0 = current, -1 = last week)
+     * @return {Promise}
+     */
+    async getWeeklySummary(weekOffset = 0) {
+        try {
+            const response = await fetch(`${this.baseUrl}/ApiController/getWeeklySummary?offset=${weekOffset}`);
+            return await response.json();
+        } catch (error) {
+            console.error('API Error:', error);
+            return { success: false, message: error.message };
+        }
     }
 };

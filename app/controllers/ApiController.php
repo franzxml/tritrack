@@ -12,6 +12,7 @@ class ApiController extends Controller
 {
     private $sessionModel;
     private $activityModel;
+    private $summaryModel;
     
     /**
      * Constructor - Initialize models
@@ -20,6 +21,7 @@ class ApiController extends Controller
     {
         $this->sessionModel = $this->model('Session');
         $this->activityModel = $this->model('Activity');
+        $this->summaryModel = $this->model('DailySummary');
         header('Content-Type: application/json');
     }
     
@@ -52,6 +54,8 @@ class ApiController extends Controller
         ];
         
         $sessionId = $this->sessionModel->create($data);
+        $this->summaryModel->updateSummary(date('Y-m-d'));
+        
         echo json_encode(['success' => true, 'session_id' => $sessionId]);
     }
     
@@ -97,5 +101,20 @@ class ApiController extends Controller
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to update target']);
         }
+    }
+    
+    /**
+     * Get weekly summary
+     * 
+     * @return void
+     */
+    public function getWeeklySummary()
+    {
+        require_once '../app/helpers/DateHelper.php';
+        $weekStart = DateHelper::getWeekStart();
+        $weekEnd = DateHelper::getWeekEnd();
+        
+        $summaries = $this->summaryModel->getByDateRange($weekStart, $weekEnd);
+        echo json_encode(['success' => true, 'data' => $summaries]);
     }
 }

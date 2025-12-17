@@ -1,6 +1,6 @@
 /**
  * Dashboard Timer Component
- * Manages activity timers with notes
+ * Manages activity timers with notifications
  * 
  * @package TriTrack
  * @author franzxml
@@ -9,10 +9,27 @@
 class TimerManager {
     constructor() {
         this.timers = {};
+        this.activities = {};
         this.targetHours = 2;
+        this.notificationShown = {};
         this.initializeTimers();
+        this.loadActivities();
         this.attachEventListeners();
         this.loadSavedTimers();
+        this.requestNotificationPermission();
+    }
+    
+    async requestNotificationPermission() {
+        await NotificationHelper.requestPermission();
+    }
+    
+    async loadActivities() {
+        const response = await ApiHelper.getActivities();
+        if (response.success) {
+            response.data.forEach(activity => {
+                this.activities[activity.name] = activity;
+            });
+        }
     }
     
     initializeTimers() {
@@ -20,6 +37,7 @@ class TimerManager {
         cards.forEach(card => {
             const activity = card.dataset.activity;
             this.timers[activity] = { seconds: 0, interval: null, isRunning: false };
+            this.notificationShown[activity] = false;
         });
     }
     
@@ -41,6 +59,7 @@ class TimerManager {
             this.timers[activity].seconds++;
             this.updateDisplay(activity, card);
             this.saveTimerState(activity);
+            this.checkNotifications(activity);
         }, 1000);
     }
     
@@ -61,6 +80,7 @@ class TimerManager {
             window.modalManager.showNotesModal(activityDisplay, async (notes) => {
                 await ApiHelper.saveSession(activity, seconds, notes);
                 this.timers[activity].seconds = 0;
+                this.notificationShown[activity] = false;
                 this.updateDisplay(activity, card);
                 this.updateButtonStates(card, 'stopped');
                 StorageHelper.clearTimer(activity);
@@ -70,11 +90,33 @@ class TimerManager {
         }
     }
     
+    checkNotifications(activity) {
+        const notifyTimeLimit = localStorage.getItem('tritrack_notify_time_limit') !== 'false';
+        
+        if (!notifyTimeLimit || this.notificationShown[activity]) {
+            return;
+        }
+        
+        const activityData = this.activities[activity];
+        if (!activityData) return;
+        
+        const targetSeconds = activityData.target_seconds;
+        const currentSeconds = this.timers[activity].seconds;
+        
+        if (currentSeconds >= targetSeconds) {
+            const displayName = activityData.display_name;
+            NotificationHelper.showTimeLimitReached(displayName);
+            this.notificationShown[activity] = true;
+        }
+    }
+    
     updateDisplay(activity, card) {
         const display = card.querySelector('.timer-display');
         const progressFill = card.querySelector('.progress-fill');
         display.textContent = TimerHelper.formatTime(this.timers[activity].seconds);
-        const targetSeconds = this.targetHours * 3600;
+        
+        const activityData = this.activities[activity];
+        const targetSeconds = activityData ? activityData.target_seconds : this.targetHours * 3600;
         const progress = TimerHelper.calculateProgress(this.timers[activity].seconds, targetSeconds);
         progressFill.style.width = `${progress}%`;
     }

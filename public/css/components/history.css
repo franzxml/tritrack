@@ -1,0 +1,98 @@
+/* History Component Styles */
+
+.history-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.history-title {
+    font-size: 2rem;
+    color: white;
+    font-weight: 700;
+}
+
+.week-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-week-nav {
+    padding: 0.75rem 1.5rem;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn-week-nav:hover {
+    background: #5568d3;
+}
+
+.week-display {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.weekly-chart {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.weekly-summary {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.weekly-summary h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+}

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/stats.css">
     <?php elseif (isset($page) && $page === 'settings'): ?>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/settings.css">
+    <?php elseif (isset($page) && $page === 'history'): ?>
+    <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/history.css">
     <?php else: ?>
     <link rel="stylesheet" href="<?= $appUrl ?? '' ?>/css/components/dashboard.css">
     <?php endif; ?>
@@ -37,6 +39,8 @@
     <script src="<?= $appUrl ?? '' ?>/js/components/stats.js"></script>
     <?php elseif (isset($page) && $page === 'settings'): ?>
     <script src="<?= $appUrl ?? '' ?>/js/components/settings.js"></script>
+    <?php elseif (isset($page) && $page === 'history'): ?>
+    <script src="<?= $appUrl ?? '' ?>/js/components/history.js"></script>
     <?php else: ?>
     <script src="<?= $appUrl ?? '' ?>/js/components/dashboard.js"></script>
     <?php endif; ?>

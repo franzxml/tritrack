@@ -6,6 +6,7 @@ ob_start();
 <div class="dashboard-container">
     <div class="dashboard-actions">
         <a href="<?= $appUrl ?>/StatsController" class="btn-stats">View Statistics</a>
+        <a href="<?= $appUrl ?>/HistoryController" class="btn-history">History</a>
         <a href="<?= $appUrl ?>/SettingsController" class="btn-settings">Settings</a>
     </div>
     
